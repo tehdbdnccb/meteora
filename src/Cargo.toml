@@ -6,7 +6,7 @@ build = "build.rs"
 
 [[bin]]
 name = "aegis-engine"
-path = "src/main.rs"
+path = "main.rs"
 
 [dependencies]
 libc = "0.2"

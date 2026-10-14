@@ -5,8 +5,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY Cargo.toml build.rs ./
-COPY src/ ./src/
+COPY . .
 RUN cargo build --release
 
 FROM debian:bookworm-slim
