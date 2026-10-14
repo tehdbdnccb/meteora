@@ -63,13 +63,13 @@ in a deployed environment). Without an endpoint the dashboard builds normally
 and shows the telemetry panels in their disconnected state.
 
 ### 2. Compile the Backend (Rust + C++ FFI)
-Build the Rust/C++ backend with `cargo build --release` from the repository
-root. The Cargo project is at the repo root, not in `src/`. Configure
-`SOLANA_RPC_URL` and `SOLANA_WALLET_PATH` for the runtime.
+The Cargo project lives in `src/`. Build the Rust/C++ backend with
+`cd src && cargo build --release`. Configure `SOLANA_RPC_URL` and
+`SOLANA_WALLET_PATH` for the runtime.
 
 The engine is a non-HTTP process. On Railway it must be deployed as its own
-service, separate from the frontend dashboard, with root directory `/` and the
-Dockerfile builder.
+service, separate from the frontend dashboard, with root directory `/src` and
+the Dockerfile builder.
 
 ### 3. Run the Hardware Latency Profiler (Stress Test)
 To verify cache-miss ratios and CPU core stability during the hackathon judging:

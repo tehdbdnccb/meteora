@@ -3,7 +3,7 @@ use std::fs;
 use std::path::PathBuf;
 
 // FFI bindings are written by hand rather than generated with bindgen to avoid
-// a libclang build dependency. They must match src/engine/orderbook.h exactly.
+// a libclang build dependency. They must match engine/orderbook.h exactly.
 const BINDINGS: &str = r#"#[repr(C)]
 #[derive(Copy, Clone, Default)]
 pub struct Order {
@@ -31,15 +31,15 @@ extern "C" {
 "#;
 
 fn main() {
-    println!("cargo:rerun-if-changed=src/engine/avx512_orderbook.cpp");
-    println!("cargo:rerun-if-changed=src/engine/orderbook.h");
+    println!("cargo:rerun-if-changed=engine/avx512_orderbook.cpp");
+    println!("cargo:rerun-if-changed=engine/orderbook.h");
 
     // No -mavx512f: the vector loop body is currently empty, and the flag
     // risks SIGILL on hosts without AVX-512.
     cc::Build::new()
         .cpp(true)
-        .file("src/engine/avx512_orderbook.cpp")
-        .include("src/engine")
+        .file("engine/avx512_orderbook.cpp")
+        .include("engine")
         .flag("-std=c++20")
         .flag("-O3")
         .compile("orderbook");
